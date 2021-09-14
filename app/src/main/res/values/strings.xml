@@ -18,4 +18,6 @@
     <string name="description_download_icon">Download icon</string>
     <string name="label_file_name">File Name:</string>
     <string name="label_status">Status:</string>
+
+    <string name="toast_message">Please select the file to download</string>
 </resources>
