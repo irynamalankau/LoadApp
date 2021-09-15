@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lable_file_name"
         app:layout_constraintTop_toTopOf="@+id/lable_file_name"
-        tools:text="@string/label_radio_button_retrofit" />
+        tools:text="@string/file_name_retrofit" />
 
     <TextView
         android:id="@+id/lable_status"
