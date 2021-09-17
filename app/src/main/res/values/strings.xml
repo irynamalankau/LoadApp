@@ -11,7 +11,11 @@
     <string name="notification_button">See status</string>
 
     <string name="button_name">Click me</string>
-    <string name="button_loading">We are loading </string>
+    <string name="button_loading_text">LOADING... </string>
+    <string name="button_initial_text">DOWNLOAD</string>
+    <string name="button_download_completed_text">REVIEW</string>
+
+
     <string name="title_activity_detail">DetailActivity</string>
 
     <string name="file_name_glide">Glide - Image Loading Library by Bump Tech</string>
@@ -25,4 +29,7 @@
 
     <string name="channel_id" translatable="false">download_channel</string>
     <string name="channel_name" translatable="true">Download</string>
+    <string name="status_success">Success</string>
+    <string name="status_failed">Failed</string>
+
 </resources>

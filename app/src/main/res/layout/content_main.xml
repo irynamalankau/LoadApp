@@ -51,7 +51,7 @@
             android:text="@string/file_name_retrofit" />
     </RadioGroup>
 
-    <Button
+    <!--<Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,16 +59,20 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
 
-    <!--<com.udacity.LoadingButton
+    <com.udacity.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />-->
+        app:layout_constraintStart_toStartOf="parent"
+        app:backgroundColor="@color/colorPrimary"
+        app:textColor="@color/white"
+        app:loadingCircleColor="@color/colorAccent"
+        app:loadingBarColor="@color/colorPrimaryDark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

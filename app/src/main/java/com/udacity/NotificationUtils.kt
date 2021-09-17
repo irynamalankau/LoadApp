@@ -8,8 +8,6 @@ import androidx.core.app.NotificationCompat
 
 // Notification ID.
 private const val NOTIFICATION_ID = 0
-private val REQUEST_CODE = 0
-private val FLAGS = 0
 
 fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context, fileName: String, status: String) {
     // create intent

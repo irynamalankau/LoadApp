@@ -14,7 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -27,8 +26,6 @@ class MainActivity : AppCompatActivity() {
     private var fileName: String = ""
 
     private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         ) as NotificationManager
 
 
-        button.setOnClickListener {
+        custom_button.setOnClickListener {
             when (radioGroup.checkedRadioButtonId) {
                 R.id.radio_button_glide -> onRadioButtonChecked(URL_GLIDE,
                         R.string.notification_description_glide,
@@ -73,13 +70,10 @@ class MainActivity : AppCompatActivity() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
                 if (id == downloadID) {
-
-                    notificationManager.sendNotification(notificationMessageBody, applicationContext, fileName, "Success")
+                    context?.getString(R.string.status_success)?.let { sendNotificationWithStatus(it) }
                 } else {
-
-                    notificationManager.sendNotification(notificationMessageBody, applicationContext, fileName, "Failed" )
+                    context?.getString(R.string.status_failed)?.let { sendNotificationWithStatus(it) }
                 }
-
             }
         }
 
@@ -91,6 +85,9 @@ class MainActivity : AppCompatActivity() {
                             .setRequiresCharging(false)
                             .setAllowedOverMetered(true)
                             .setAllowedOverRoaming(true)
+
+            // Set button state, start animation
+            custom_button.buttonState = ButtonState.Loading
 
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             downloadID = downloadManager.enqueue(request)// enqueue() puts the download request in the queue. enqueue() returns an ID for the download, unique across the system
@@ -124,11 +121,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun onRadioButtonChecked(url: String, resourceIdMessageBody: Int, resourceIdFileName: Int ) {
+    private fun onRadioButtonChecked(url: String, resourceIdMessageBody: Int, resourceIdFileName: Int) {
         download(url)
         notificationMessageBody = applicationContext.getString(resourceIdMessageBody)
         fileName = applicationContext.getString(resourceIdFileName)
     }
+
+    private fun sendNotificationWithStatus(status: String) {
+        //set button state and stop animation
+        custom_button.buttonState = ButtonState.Completed
+        notificationManager.sendNotification(notificationMessageBody, applicationContext, fileName, status)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
+
+
 
     companion object {
         private const val URL_GLIDE =
@@ -138,11 +149,6 @@ class MainActivity : AppCompatActivity() {
         private const val URL_RETROFIT =
                 "https://github.com/square/retrofit/archive/master.zip"
 
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(receiver)
     }
 
 }
