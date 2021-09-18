@@ -10,13 +10,11 @@
     <string name="notification_description_retrofit">The Retrofit repository is downloaded</string>
     <string name="notification_button">See status</string>
 
-    <string name="button_name">Click me</string>
     <string name="button_loading_text">LOADING... </string>
     <string name="button_initial_text">DOWNLOAD</string>
-    <string name="button_download_completed_text">REVIEW</string>
+    <string name="button_ok">Ok</string>
 
-
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">Details</string>
 
     <string name="file_name_glide">Glide - Image Loading Library by Bump Tech</string>
     <string name="file_name_udacity">LoadApp - Current repository by Udacity</string>
@@ -31,5 +29,8 @@
     <string name="channel_name" translatable="true">Download</string>
     <string name="status_success">Success</string>
     <string name="status_failed">Failed</string>
+
+    <string name="desc_button_ok">Button Ok</string>
+    <string name="desc_loading_button">Button Download</string>
 
 </resources>

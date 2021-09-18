@@ -24,8 +24,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             PendingIntent.FLAG_UPDATE_CURRENT
     )
 
-    // TODO: add style
-
     // Get an instance of NotificationCompat.Builder
     // Build the notification
     val notificationBuilder = NotificationCompat.Builder(applicationContext, applicationContext.getString(R.string.channel_id))
@@ -40,10 +38,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
                     applicationContext.getString(R.string.notification_button),
                     contentPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-
-            /*//  add style to builder
-            .setStyle()
-            .setLargeIcon()*/
 
     notify(NOTIFICATION_ID, notificationBuilder.build())
 }

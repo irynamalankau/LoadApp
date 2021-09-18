@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                         R.string.notification_description_retrofit,
                         R.string.file_name_retrofit)
 
-                else -> toast()
+                else -> Toast.makeText(applicationContext, getString(R.string.toast_message), Toast.LENGTH_SHORT).show()
 
             }
         }
@@ -116,11 +116,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toast(){
-        Toast.makeText(applicationContext, getString(R.string.toast_message), Toast.LENGTH_SHORT).show()
-    }
-
-
     private fun onRadioButtonChecked(url: String, resourceIdMessageBody: Int, resourceIdFileName: Int) {
         download(url)
         notificationMessageBody = applicationContext.getString(resourceIdMessageBody)
@@ -133,13 +128,10 @@ class MainActivity : AppCompatActivity() {
         notificationManager.sendNotification(notificationMessageBody, applicationContext, fileName, status)
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(receiver)
     }
-
-
 
     companion object {
         private const val URL_GLIDE =
