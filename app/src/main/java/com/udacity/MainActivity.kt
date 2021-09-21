@@ -3,7 +3,6 @@ package com.udacity
 import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -32,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+
+
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         // Initialize the notification manager
@@ -43,15 +44,15 @@ class MainActivity : AppCompatActivity() {
 
         custom_button.setOnClickListener {
             when (radioGroup.checkedRadioButtonId) {
-                R.id.radio_button_glide -> onRadioButtonChecked(URL_GLIDE,
+                R.id.radio_button_glide -> processSelection(URL_GLIDE,
                         R.string.notification_description_glide,
                         R.string.file_name_glide)
 
-                R.id.radio_button_udacity -> onRadioButtonChecked(URL_UDACITY,
+                R.id.radio_button_udacity -> processSelection(URL_UDACITY,
                         R.string.notification_description_udacity,
                         R.string.file_name_udacity)
 
-                R.id.radio_button_retrofit -> onRadioButtonChecked(URL_RETROFIT,
+                R.id.radio_button_retrofit -> processSelection(URL_RETROFIT,
                         R.string.notification_description_retrofit,
                         R.string.file_name_retrofit)
 
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onRadioButtonChecked(url: String, resourceIdMessageBody: Int, resourceIdFileName: Int) {
+    private fun processSelection(url: String, resourceIdMessageBody: Int, resourceIdFileName: Int) {
         download(url)
         notificationMessageBody = applicationContext.getString(resourceIdMessageBody)
         fileName = applicationContext.getString(resourceIdFileName)

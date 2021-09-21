@@ -24,8 +24,14 @@ class DetailActivity : AppCompatActivity() {
 
         notificationManager.cancelAll()
 
+        val download_status = intent.getStringExtra("status")
+
         file_name.text = intent.getStringExtra("fileName")
         status.text = intent.getStringExtra("status")
+
+        if (download_status == getString(R.string.status_failed)){
+            status.setTextColor(ContextCompat.getColor(this,R.color.status_failed))
+        }
 
     }
 

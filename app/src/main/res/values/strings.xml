@@ -10,8 +10,8 @@
     <string name="notification_description_retrofit">The Retrofit repository is downloaded</string>
     <string name="notification_button">See status</string>
 
-    <string name="button_loading_text">LOADING... </string>
-    <string name="button_initial_text">DOWNLOAD</string>
+    <string name="button_loading_text">Loading... </string>
+    <string name="button_initial_text">Download</string>
     <string name="button_ok">Ok</string>
 
     <string name="title_activity_detail">Details</string>
