@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-
-
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         // Initialize the notification manager
@@ -66,33 +64,56 @@ class MainActivity : AppCompatActivity() {
                 applicationContext.getString(R.string.channel_name)
         )
     }
-        //create broadcast receiver
-        private val receiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-                if (id == downloadID) {
-                    context?.getString(R.string.status_success)?.let { sendNotificationWithStatus(it) }
-                } else {
-                    context?.getString(R.string.status_failed)?.let { sendNotificationWithStatus(it) }
-                }
-            }
-        }
 
-        private fun download(url: String) {
-            val request =
-                    DownloadManager.Request(Uri.parse(url))
-                            .setTitle(getString(R.string.app_name))
-                            .setDescription(getString(R.string.app_description))
-                            .setRequiresCharging(false)
-                            .setAllowedOverMetered(true)
-                            .setAllowedOverRoaming(true)
+    //create broadcast receiver
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
-            // Set button state, start animation
-            custom_button.buttonState = ButtonState.Loading
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            var status: String? = null
+            var downloadStatus: Int? = null
 
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-            downloadID = downloadManager.enqueue(request)// enqueue() puts the download request in the queue. enqueue() returns an ID for the download, unique across the system
+            val query = id.let { DownloadManager.Query().setFilterById(it) }
+            val cursor = downloadManager.query(query)
+
+            if (cursor.moveToFirst()) {
+                downloadStatus = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+            }
+
+            when (downloadStatus) {
+                DownloadManager.STATUS_SUCCESSFUL -> {
+                    status = context.getString(R.string.status_success)
+                }
+                DownloadManager.STATUS_FAILED -> {
+                    status = context.getString(R.string.status_fail)
+                }
+            }
+
+            if (status != null) {
+                notificationManager.sendNotification(notificationMessageBody, applicationContext, fileName, status)
+            }
+
+            custom_button.buttonState = ButtonState.Completed
         }
+    }
+
+    private fun download(url: String) {
+        val request =
+                DownloadManager.Request(Uri.parse(url))
+                        .setTitle(getString(R.string.app_name))
+                        .setDescription(getString(R.string.app_description))
+                        .setRequiresCharging(false)
+                        .setAllowedOverMetered(true)
+                        .setAllowedOverRoaming(true)
+
+        // Set button state, start animation
+        custom_button.buttonState = ButtonState.Loading
+
+        val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        downloadID = downloadManager.enqueue(request)// enqueue() puts the download request in the queue. enqueue() returns an ID for the download, unique across the system
+    }
 
 
     //fun to create notification channel
@@ -121,12 +142,6 @@ class MainActivity : AppCompatActivity() {
         download(url)
         notificationMessageBody = applicationContext.getString(resourceIdMessageBody)
         fileName = applicationContext.getString(resourceIdFileName)
-    }
-
-    private fun sendNotificationWithStatus(status: String) {
-        //set button state and stop animation
-        custom_button.buttonState = ButtonState.Completed
-        notificationManager.sendNotification(notificationMessageBody, applicationContext, fileName, status)
     }
 
     override fun onDestroy() {
