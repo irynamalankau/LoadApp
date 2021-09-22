@@ -10,16 +10,16 @@
     <string name="notification_description_retrofit">The Retrofit repository is downloaded</string>
     <string name="notification_button">See status</string>
 
-    <string name="button_loading_text">Loading... </string>
+    <string name="button_loading_text">Loading… </string>
     <string name="button_initial_text">Download</string>
-    <string name="button_ok">Ok</string>
+    <string name="button_ok">OK</string>
 
     <string name="title_activity_detail">Details</string>
 
     <string name="file_name_glide">Glide - Image Loading Library by Bump Tech</string>
     <string name="file_name_udacity">LoadApp - Current repository by Udacity</string>
     <string name="file_name_retrofit">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc </string>
-    <string name="description_download_icon">Download icon</string>
+
     <string name="label_file_name">File Name:</string>
     <string name="label_status">Status:</string>
 
@@ -30,7 +30,9 @@
     <string name="status_success">Success</string>
     <string name="status_fail">Fail</string>
 
-    <string name="desc_button_ok">Button Ok</string>
+    <string name="desc_button_ok">Button OK</string>
     <string name="desc_loading_button">Button Download</string>
+    <string name="desc_download_icon">Download icon</string>
+
 
 </resources>

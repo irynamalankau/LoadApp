@@ -29,8 +29,8 @@ class DetailActivity : AppCompatActivity() {
         file_name.text = intent.getStringExtra("fileName")
         status.text = intent.getStringExtra("status")
 
-        if (downloadStatus == getString(R.string.status_fail)){
-            status.setTextColor(ContextCompat.getColor(this,R.color.status_failed))
+        if (downloadStatus == getString(R.string.status_fail)) {
+            status.setTextColor(ContextCompat.getColor(this, R.color.status_fail))
         }
 
     }

@@ -41,6 +41,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
     notify(NOTIFICATION_ID, notificationBuilder.build())
 }
+
 // fun to cancel all notifications
 fun NotificationManager.cancelNotifications() {
     cancelAll()
